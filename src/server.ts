@@ -1,11 +1,15 @@
-interface User {
-  birthYear: number;
-}
+import fastify from "fastify";
 
-function calculateUserAge(user: User) {
-  return new Date().getFullYear() - user.birthYear;
-}
+const app = fastify();
 
-calculateUserAge({
-  birthYear: 1993
+app.get("/", async (request, reply) => {
+  return { hello: "world" };
 });
+
+app
+  .listen({
+    port: 3000
+  })
+  .then(() => {
+    console.log("Server listening on http://localhost:3000");
+  });
