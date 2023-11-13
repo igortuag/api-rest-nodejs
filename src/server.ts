@@ -5,20 +5,20 @@ import { knex } from './database'
 const app = fastify()
 
 app.get('/', async (request, reply) => {
-  const transaction = await knex('transactions')
-    .insert({
-      id: crypto.randomUUID(),
-      title: 'Test',
-      amount: 100,
-      session_id: crypto.randomUUID(),
-    })
-    .returning('*')
+  // const transaction = await knex('transactions')
+  //   .insert({
+  //     id: crypto.randomUUID(),
+  //     title: 'Test',
+  //     amount: 100,
+  //     session_id: crypto.randomUUID(),
+  //   })
+  //   .returning('*')
 
-  return transaction
+  // return transaction
 
-  const tables = await knex('sqlite_schema').select('*')
+  const transactions = await knex('transactions').select('*')
 
-  return { tables }
+  return transactions
 })
 
 app
