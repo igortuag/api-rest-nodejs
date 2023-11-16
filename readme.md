@@ -9,6 +9,6 @@
 # BR
 
 - The transaction can be of the credit type that adds to the total value or debit that subtracts.
-
+- It should be possible to identify the user's transactions
 
 # FBR
