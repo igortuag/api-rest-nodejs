@@ -13,6 +13,8 @@ export async function transactionsRoutes(app: FastifyInstance) {
       type: z.enum(['credit', 'debit']),
     })
 
+    const body = createTransactionBodySchema.parse(request.body)
+
     const transactions = await knex('transactions')
       .where('amount', '>', 0)
       .select('*')
