@@ -1,4 +1,7 @@
 import { FastifyInstance } from 'fastify'
+
+import { randomUUID } from 'crypto'
+
 import { z } from 'zod'
 
 import knex from 'knex'
@@ -14,5 +17,12 @@ export async function transactionsRoutes(app: FastifyInstance) {
     const { title, amount, type } = createTransactionBodySchema.parse(
       request.body,
     )
+
+    const transaction = await knex('transactions').insert({
+      id: randomUUID(),
+      title,
+      amount,
+      type,
+    })
   })
 }
