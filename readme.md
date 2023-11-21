@@ -3,7 +3,7 @@
 # FR
 
 - [x] The user must create a new transaction;
-- [ ] The user must be able to obtain a summary of their account;
+- [x] The user must be able to obtain a summary of their account;
 - [x] The user must be able to list all own transaction
 - [x] The user should get a single transaction
 
