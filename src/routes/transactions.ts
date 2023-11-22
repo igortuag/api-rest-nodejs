@@ -6,6 +6,8 @@ import { z } from 'zod'
 
 import knex from 'knex'
 
+// Cookies -> way to monitor user between requests
+
 export async function transactionsRoutes(app: FastifyInstance) {
   app.get('/', async () => {
     const transactions = await knex('transactions').select('*')
