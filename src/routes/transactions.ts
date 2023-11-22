@@ -62,7 +62,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
       reply.cookie('sessionId', sessionId, {
         path: '/',
-        httpOnly: true,
+        maxAge: 100 * 60 * 60 * 24 * 7, // 7 days
       })
     }
 
