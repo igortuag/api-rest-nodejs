@@ -10,7 +10,7 @@
 # BR
 
 - [x] The transaction can be of the credit type that adds to the total value or debit that subtracts.
-- [ ] It should be possible to identify the user's transactions
-- [ ] The user can just see their own transaction
+- [x] It should be possible to identify the user's transactions
+- [x] The user can just see their own transaction
 
 # FBR
