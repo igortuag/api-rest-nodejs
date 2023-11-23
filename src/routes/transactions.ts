@@ -9,8 +9,14 @@ import knex from 'knex'
 // Cookies -> way to monitor user between requests
 
 export async function transactionsRoutes(app: FastifyInstance) {
-  app.get('/', async () => {
-    const transactions = await knex('transactions').select('*')
+  app.get('/', async (request) => {
+    // get session id from cookies
+    const sessionId = request.cookies.sessionId
+
+    const transactions = await knex('transactions')
+      .select('*')
+      .where('session_id', sessionId)
+      .orderBy('created_at', 'desc')
 
     return { transactions }
   })
