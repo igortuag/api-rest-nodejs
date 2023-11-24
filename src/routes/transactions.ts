@@ -27,34 +27,46 @@ export async function transactionsRoutes(app: FastifyInstance) {
     },
   )
 
-  app.get('/:id', async (request) => {
-    const getTransactionParamsSchema = z.object({
-      id: z.string().uuid(),
-    })
-
-    const { id } = getTransactionParamsSchema.parse(request.params)
-
-    const transaction = await knex('transactions')
-      .select('*')
-      .where('id', id)
-      .first()
-
-    if (!transaction) {
-      return { error: 'Transaction not found' }
-    }
-
-    return { transaction }
-  })
-
-  app.get('/summary', async () => {
-    const summary = await knex('transactions')
-      .sum('amount', {
-        as: 'amount',
+  app.get(
+    '/:id',
+    {
+      preHandler: [checkSessionIdExist],
+    },
+    async (request) => {
+      const getTransactionParamsSchema = z.object({
+        id: z.string().uuid(),
       })
-      .first()
 
-    return { summary }
-  })
+      const { id } = getTransactionParamsSchema.parse(request.params)
+
+      const transaction = await knex('transactions')
+        .select('*')
+        .where('id', id)
+        .first()
+
+      if (!transaction) {
+        return { error: 'Transaction not found' }
+      }
+
+      return { transaction }
+    },
+  )
+
+  app.get(
+    '/summary',
+    {
+      preHandler: [checkSessionIdExist],
+    },
+    async () => {
+      const summary = await knex('transactions')
+        .sum('amount', {
+          as: 'amount',
+        })
+        .first()
+
+      return { summary }
+    },
+  )
 
   app.post('/', async (request, reply) => {
     const createTransactionBodySchema = z.object({
