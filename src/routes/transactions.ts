@@ -5,25 +5,27 @@ import { randomUUID } from 'crypto'
 import { z } from 'zod'
 
 import knex from 'knex'
+import { checkSessionIdExist } from '../middlewares/check-session-id-exist'
 
 // Cookies -> way to monitor user between requests
 
 export async function transactionsRoutes(app: FastifyInstance) {
-  app.get('/', async (request, reply) => {
-    // get session id from cookies
-    const sessionId = request.cookies.sessionId
+  app.get(
+    '/',
+    {
+      preHandler: [checkSessionIdExist],
+    },
+    async (request) => {
+      const sessionId = request.cookies.sessionId
 
-    if (!sessionId) {
-      return reply.status(401).send({ error: 'Unauthorized' })
-    }
+      const transactions = await knex('transactions')
+        .select('*')
+        .where('session_id', sessionId)
+        .orderBy('created_at', 'desc')
 
-    const transactions = await knex('transactions')
-      .select('*')
-      .where('session_id', sessionId)
-      .orderBy('created_at', 'desc')
-
-    return { transactions }
-  })
+      return { transactions }
+    },
+  )
 
   app.get('/:id', async (request) => {
     const getTransactionParamsSchema = z.object({
