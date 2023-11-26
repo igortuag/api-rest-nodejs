@@ -14,3 +14,15 @@
 - [x] The user can just see their own transaction
 
 # FBR
+
+
+# Tests
+
+## Unit
+Test the unit of the app
+
+## Integration
+Communication between two units
+
+## e2e
+End to end, simulate an user using the app
