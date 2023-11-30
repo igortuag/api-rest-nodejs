@@ -33,7 +33,7 @@ describe('Transactions routes', () => {
       .get('/transactions')
       .set('Cookie', cookies)
 
-    expect(listTransactionReponse.body).toEqual([
+    expect(listTransactionReponse.body.transactions).toEqual([
       expect.objectContaining({
         title: 'new transaction',
         amount: 5000,
