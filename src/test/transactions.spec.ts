@@ -21,4 +21,8 @@ describe('Transactions routes', () => {
       })
       .expect(201)
   })
+
+  it('should be able to list all transactions', async () => {
+    await request(app.server).get('/transactions').expect(200)
+  })
 })
