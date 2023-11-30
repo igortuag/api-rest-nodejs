@@ -23,6 +23,11 @@ describe('Transactions routes', () => {
   })
 
   it('should be able to list all transactions', async () => {
+    const response = await request(app.server)
+      .post('/transactions')
+      .send({ title: 'new transaction', amount: 5000, type: 'credit' })
+      .expect(201)
+
     await request(app.server).get('/transactions').expect(200)
   })
 })
