@@ -85,7 +85,7 @@ describe('Transactions routes', () => {
       .send({ title: 'debit transaction', amount: 2000, type: 'debit' })
 
     const summaryResponse = await request(app.server)
-      .get('/transactions/summary')
+      .get('/summary')
       .set('Cookie', cookies)
 
     expect(summaryResponse.body).toEqual(
